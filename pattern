@@ -1,0 +1,9 @@
+#MTU & txqueuelen
+
+sed -e '/^exit 0/i #Author: Hugo Kuo\n#Setup MTU & txqueuelen for all nics\nx=`ifconfig -a | grep eth | cut -d" " -f1 ` && y=`echo $x|wc -w`\nfor i in $(seq 1 $y);do nic=`echo $x|cut -d" " -f$i`;ifconfig $nic mtu 9000 ;ifconfig $nic txqueuelen 10000;done\n' -e //N  /etc/rc.local -i 
+
+
+
+#limits.conf
+
+sed -e '/^# End of file/i * - nofile 32768\nroot - nofile 32768\n' -e //N /etc/security/limits.conf -i
